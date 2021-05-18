@@ -14,14 +14,14 @@
 <script>
 export default {
   computed: {
-    roles () {
+    roles() {
       return this.$store.getters.roles
     },
     switchRoles: {
-      get () {
+      get() {
         return this.roles[0]
       },
-      set (val) {
+      set(val) {
         this.$store.dispatch('user/changeRoles', val).then(() => {
           this.$emit('change')
         })

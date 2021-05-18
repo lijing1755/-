@@ -72,7 +72,7 @@ const defaultRole = {
 }
 
 export default {
-  data () {
+  data() {
     return {
       role: Object.assign({}, defaultRole),
       routes: [],
@@ -87,28 +87,28 @@ export default {
     }
   },
   computed: {
-    routesData () {
+    routesData() {
       return this.routes
     }
   },
-  created () {
+  created() {
     // Mock: get all routes and roles list from server
     this.getRoutes()
     this.getRoles()
   },
   methods: {
-    async getRoutes () {
+    async getRoutes() {
       const res = await getRoutes()
       this.serviceRoutes = res.data
       this.routes = this.generateRoutes(res.data)
     },
-    async getRoles () {
+    async getRoles() {
       const res = await getRoles()
       this.rolesList = res.data
     },
 
     // Reshape the routes structure so that it looks the same as the sidebar
-    generateRoutes (routes, basePath = '/') {
+    generateRoutes(routes, basePath = '/') {
       const res = []
 
       for (let route of routes) {
@@ -135,7 +135,7 @@ export default {
       }
       return res
     },
-    generateArr (routes) {
+    generateArr(routes) {
       let data = []
       routes.forEach(route => {
         data.push(route)
@@ -148,7 +148,7 @@ export default {
       })
       return data
     },
-    handleAddRole () {
+    handleAddRole() {
       this.role = Object.assign({}, defaultRole)
       if (this.$refs.tree) {
         this.$refs.tree.setCheckedNodes([])
@@ -156,7 +156,7 @@ export default {
       this.dialogType = 'new'
       this.dialogVisible = true
     },
-    handleEdit (scope) {
+    handleEdit(scope) {
       this.dialogType = 'edit'
       this.dialogVisible = true
       this.checkStrictly = true
@@ -168,13 +168,13 @@ export default {
         this.checkStrictly = false
       })
     },
-    handleDelete ({ $index, row }) {
+    handleDelete({ $index, row }) {
       this.$confirm('Confirm to remove the role?', 'Warning', {
         confirmButtonText: 'Confirm',
         cancelButtonText: 'Cancel',
         type: 'warning'
       })
-        .then(async () => {
+        .then(async() => {
           await deleteRole(row.key)
           this.rolesList.splice($index, 1)
           this.$message({
@@ -184,7 +184,7 @@ export default {
         })
         .catch(err => { console.error(err) })
     },
-    generateTree (routes, basePath = '/', checkedKeys) {
+    generateTree(routes, basePath = '/', checkedKeys) {
       const res = []
 
       for (const route of routes) {
@@ -201,7 +201,7 @@ export default {
       }
       return res
     },
-    async confirmRole () {
+    async confirmRole() {
       const isEdit = this.dialogType === 'edit'
 
       const checkedKeys = this.$refs.tree.getCheckedKeys()
@@ -235,7 +235,7 @@ export default {
       })
     },
     // reference: src/view/layout/components/Sidebar/SidebarItem.vue
-    onlyOneShowingChild (children = [], parent) {
+    onlyOneShowingChild(children = [], parent) {
       let onlyOneChild = null
       const showingChildren = children.filter(item => !item.hidden)
 

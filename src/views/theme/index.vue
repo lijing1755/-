@@ -78,7 +78,7 @@ import '@/assets/custom-theme/index.css' // the theme changed version element-ui
 
 export default {
   name: 'Theme',
-  data () {
+  data() {
     return {
       theme: false,
       tags: [
@@ -93,7 +93,7 @@ export default {
     }
   },
   watch: {
-    theme () {
+    theme() {
       toggleClass(document.body, 'custom-theme')
     }
   }

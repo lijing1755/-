@@ -26,10 +26,10 @@ export default {
   },
   computed: {
     source_uri: {
-      get () {
+      get() {
         return this.value
       },
-      set (val) {
+      set(val) {
         this.$emit('input', val)
       }
     }

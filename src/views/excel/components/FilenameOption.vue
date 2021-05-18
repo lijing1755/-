@@ -15,10 +15,10 @@ export default {
   },
   computed: {
     filename: {
-      get () {
+      get() {
         return this.value
       },
-      set (val) {
+      set(val) {
         this.$emit('input', val)
       }
     }

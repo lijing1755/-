@@ -31,7 +31,7 @@ import PanThumb from '@/components/PanThumb'
 export default {
   name: 'AvatarUploadDemo',
   components: { ImageCropper, PanThumb },
-  data () {
+  data() {
     return {
       imagecropperShow: false,
       imagecropperKey: 0,
@@ -39,12 +39,12 @@ export default {
     }
   },
   methods: {
-    cropSuccess (resData) {
+    cropSuccess(resData) {
       this.imagecropperShow = false
       this.imagecropperKey = this.imagecropperKey + 1
       this.image = resData.files.avatar
     },
-    close () {
+    close() {
       this.imagecropperShow = false
     }
   }

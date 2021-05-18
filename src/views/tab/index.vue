@@ -18,7 +18,7 @@ import TabPane from './components/TabPane'
 export default {
   name: 'Tab',
   components: { TabPane },
-  data () {
+  data() {
     return {
       tabMapOptions: [
         { label: 'China', key: 'CN' },
@@ -31,11 +31,11 @@ export default {
     }
   },
   watch: {
-    activeName (val) {
+    activeName(val) {
       this.$router.push(`${this.$route.path}?tab=${val}`)
     }
   },
-  created () {
+  created() {
     // init the default selected tab
     const tab = this.$route.query.tab
     if (tab) {
@@ -43,7 +43,7 @@ export default {
     }
   },
   methods: {
-    showCreatedTimes () {
+    showCreatedTimes() {
       this.createdTimes = this.createdTimes + 1
     }
   }

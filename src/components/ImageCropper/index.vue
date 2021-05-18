@@ -224,7 +224,7 @@ export default {
       default: false
     }
   },
-  data () {
+  data() {
     const { imgFormat, langType, langExt, width, height } = this
     let isSupported = true
     const allowImgFormat = ['jpg', 'png']
@@ -306,14 +306,14 @@ export default {
   },
   computed: {
     // 进度条样式
-    progressStyle () {
+    progressStyle() {
       const { progress } = this
       return {
         width: progress + '%'
       }
     },
     // 原图样式
-    sourceImgStyle () {
+    sourceImgStyle() {
       const { scale, sourceImgMasking } = this
       const top = scale.y + sourceImgMasking.y + 'px'
       const left = scale.x + sourceImgMasking.x + 'px'
@@ -330,7 +330,7 @@ export default {
       }
     },
     // 原图蒙版属性
-    sourceImgMasking () {
+    sourceImgMasking() {
       const { width, height, ratio, sourceImgContainer } = this
       const sic = sourceImgContainer
       const sicRatio = sic.width / sic.height // 原图容器宽高比
@@ -358,7 +358,7 @@ export default {
       }
     },
     // 原图遮罩样式
-    sourceImgShadeStyle () {
+    sourceImgShadeStyle() {
       const { sourceImgMasking, sourceImgContainer } = this
       const sic = sourceImgContainer
       const sim = sourceImgMasking
@@ -371,7 +371,7 @@ export default {
         height: h + 'px'
       }
     },
-    previewStyle () {
+    previewStyle() {
       const { ratio, previewContainer } = this
       const pc = previewContainer
       let w = pc.width
@@ -390,26 +390,26 @@ export default {
     }
   },
   watch: {
-    value (newValue) {
+    value(newValue) {
       if (newValue && this.loading !== 1) {
         this.reset()
       }
     }
   },
-  created () {
+  created() {
     // 绑定按键esc隐藏此插件事件
     document.addEventListener('keyup', this.closeHandler)
   },
-  destroyed () {
+  destroyed() {
     document.removeEventListener('keyup', this.closeHandler)
   },
   methods: {
     // 点击波纹效果
-    ripple (e) {
+    ripple(e) {
       effectRipple(e)
     },
     // 关闭控件
-    off () {
+    off() {
       setTimeout(() => {
         this.$emit('input', false)
         this.$emit('close')
@@ -419,7 +419,7 @@ export default {
       }, 200)
     },
     // 设置步骤
-    setStep (no) {
+    setStep(no) {
       // 延时是为了显示动画效果呢，哈哈哈
       setTimeout(() => {
         this.step = no
@@ -427,11 +427,11 @@ export default {
     },
     /* 图片选择区域函数绑定
      ---------------------------------------------------------------*/
-    preventDefault (e) {
+    preventDefault(e) {
       e.preventDefault()
       return false
     },
-    handleClick (e) {
+    handleClick(e) {
       if (this.loading !== 1) {
         if (e.target !== this.$refs.fileinput) {
           e.preventDefault()
@@ -441,7 +441,7 @@ export default {
         }
       }
     },
-    handleChange (e) {
+    handleChange(e) {
       e.preventDefault()
       if (this.loading !== 1) {
         const files = e.target.files || e.dataTransfer.files
@@ -453,7 +453,7 @@ export default {
     },
     /* ---------------------------------------------------------------*/
     // 检测选择的文件是否合适
-    checkFile (file) {
+    checkFile(file) {
       const { lang, maxSize } = this
       // 仅限图片
       if (file.type.indexOf('image') === -1) {
@@ -470,14 +470,14 @@ export default {
       return true
     },
     // 重置控件
-    reset () {
+    reset() {
       this.loading = 0
       this.hasError = false
       this.errorMsg = ''
       this.progress = 0
     },
     // 设置图片源
-    setSourceImg (file) {
+    setSourceImg(file) {
       const fr = new FileReader()
       fr.onload = e => {
         this.sourceImgUrl = fr.result
@@ -486,7 +486,7 @@ export default {
       fr.readAsDataURL(file)
     },
     // 剪裁前准备工作
-    startCrop () {
+    startCrop() {
       const {
         width,
         height,
@@ -539,7 +539,7 @@ export default {
       }
     },
     // 鼠标按下图片准备移动
-    imgStartMove (e) {
+    imgStartMove(e) {
       e.preventDefault()
       // 支持触摸事件，则鼠标事件无效
       if (this.isSupportTouch && !e.targetTouches) {
@@ -555,7 +555,7 @@ export default {
       simd.on = true
     },
     // 鼠标按下状态下移动，图片移动
-    imgMove (e) {
+    imgMove(e) {
       e.preventDefault()
       // 支持触摸事件，则鼠标事件无效
       if (this.isSupportTouch && !e.targetTouches) {
@@ -591,14 +591,14 @@ export default {
       scale.y = rY
     },
     // 按钮按下开始向右旋转
-    startRotateRight (e) {
+    startRotateRight(e) {
       const { scale } = this
       scale.rotateRight = true
       const rotate = () => {
         if (scale.rotateRight) {
           const degree = ++scale.degree
           this.createImg(degree)
-          setTimeout(function () {
+          setTimeout(function() {
             rotate()
           }, 60)
         }
@@ -606,14 +606,14 @@ export default {
       rotate()
     },
     // 按钮按下开始向左旋转
-    startRotateLeft (e) {
+    startRotateLeft(e) {
       const { scale } = this
       scale.rotateLeft = true
       const rotate = () => {
         if (scale.rotateLeft) {
           const degree = --scale.degree
           this.createImg(degree)
-          setTimeout(function () {
+          setTimeout(function() {
             rotate()
           }, 60)
         }
@@ -621,20 +621,20 @@ export default {
       rotate()
     },
     // 停止旋转
-    endRotate () {
+    endRotate() {
       const { scale } = this
       scale.rotateLeft = false
       scale.rotateRight = false
     },
     // 按钮按下开始放大
-    startZoomAdd (e) {
+    startZoomAdd(e) {
       const { scale } = this
       scale.zoomAddOn = true
       const zoom = () => {
         if (scale.zoomAddOn) {
           const range = scale.range >= 100 ? 100 : ++scale.range
           this.zoomImg(range)
-          setTimeout(function () {
+          setTimeout(function() {
             zoom()
           }, 60)
         }
@@ -642,18 +642,18 @@ export default {
       zoom()
     },
     // 按钮松开或移开取消放大
-    endZoomAdd (e) {
+    endZoomAdd(e) {
       this.scale.zoomAddOn = false
     },
     // 按钮按下开始缩小
-    startZoomSub (e) {
+    startZoomSub(e) {
       const { scale } = this
       scale.zoomSubOn = true
       const zoom = () => {
         if (scale.zoomSubOn) {
           const range = scale.range <= 0 ? 0 : --scale.range
           this.zoomImg(range)
-          setTimeout(function () {
+          setTimeout(function() {
             zoom()
           }, 60)
         }
@@ -661,15 +661,15 @@ export default {
       zoom()
     },
     // 按钮松开或移开取消缩小
-    endZoomSub (e) {
+    endZoomSub(e) {
       const { scale } = this
       scale.zoomSubOn = false
     },
-    zoomChange (e) {
+    zoomChange(e) {
       this.zoomImg(e.target.value)
     },
     // 缩放原图
-    zoomImg (newRange) {
+    zoomImg(newRange) {
       const { sourceImgMasking, scale } = this
       const {
         maxWidth,
@@ -717,7 +717,7 @@ export default {
       }, 300)
     },
     // 生成需求图片
-    createImg (e) {
+    createImg(e) {
       const {
         mime,
         sourceImg,
@@ -748,7 +748,7 @@ export default {
       )
       this.createImgUrl = canvas.toDataURL(mime)
     },
-    prepareUpload () {
+    prepareUpload() {
       const { url, createImgUrl, field, ki } = this
       this.$emit('crop-success', createImgUrl, field, ki)
       if (typeof url === 'string' && url) {
@@ -758,7 +758,7 @@ export default {
       }
     },
     // 上传图片
-    upload () {
+    upload() {
       const {
         lang,
         imgFormat,
@@ -809,7 +809,7 @@ export default {
           }
         })
     },
-    closeHandler (e) {
+    closeHandler(e) {
       if (this.value && (e.key === 'Escape' || e.keyCode === 27)) {
         this.off()
       }

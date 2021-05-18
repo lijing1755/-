@@ -1,6 +1,6 @@
 import store from '@/store'
 
-function checkPermission (el, binding) {
+function checkPermission(el, binding) {
   const { value } = binding
   const roles = store.getters && store.getters.roles
 
@@ -22,10 +22,10 @@ function checkPermission (el, binding) {
 }
 
 export default {
-  inserted (el, binding) {
+  inserted(el, binding) {
     checkPermission(el, binding)
   },
-  update (el, binding) {
+  update(el, binding) {
     checkPermission(el, binding)
   }
 }

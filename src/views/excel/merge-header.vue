@@ -51,25 +51,25 @@ import { parseTime } from '@/utils'
 
 export default {
   name: 'MergeHeader',
-  data () {
+  data() {
     return {
       list: null,
       listLoading: true,
       downloadLoading: false
     }
   },
-  created () {
+  created() {
     this.fetchData()
   },
   methods: {
-    fetchData () {
+    fetchData() {
       this.listLoading = true
       fetchList(this.listQuery).then(response => {
         this.list = response.data.items
         this.listLoading = false
       })
     },
-    handleDownload () {
+    handleDownload() {
       this.downloadLoading = true
       import('@/vendor/Export2Excel').then(excel => {
         const multiHeader = [['Id', 'Main Information', '', '', 'Date']]
@@ -87,7 +87,7 @@ export default {
         this.downloadLoading = false
       })
     },
-    formatJson (filterVal, jsonData) {
+    formatJson(filterVal, jsonData) {
       return jsonData.map(v => filterVal.map(j => {
         if (j === 'timestamp') {
           return parseTime(v[j])

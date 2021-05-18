@@ -40,7 +40,7 @@ import { fetchList } from '@/api/article'
 
 export default {
   name: 'ExportZip',
-  data () {
+  data() {
     return {
       list: null,
       listLoading: true,
@@ -48,17 +48,17 @@ export default {
       filename: ''
     }
   },
-  created () {
+  created() {
     this.fetchData()
   },
   methods: {
-    async fetchData () {
+    async fetchData() {
       this.listLoading = true
       const { data } = await fetchList()
       this.list = data.items
       this.listLoading = false
     },
-    handleDownload () {
+    handleDownload() {
       this.downloadLoading = true
       import('@/vendor/Export2Zip').then(zip => {
         const tHeader = ['Id', 'Title', 'Author', 'Readings', 'Date']
@@ -69,7 +69,7 @@ export default {
         this.downloadLoading = false
       })
     },
-    formatJson (filterVal, jsonData) {
+    formatJson(filterVal, jsonData) {
       return jsonData.map(v => filterVal.map(j => v[j]))
     }
   }

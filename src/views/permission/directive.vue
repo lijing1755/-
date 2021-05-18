@@ -75,14 +75,14 @@ export default {
   name: 'DirectivePermission',
   components: { SwitchRoles },
   directives: { permission },
-  data () {
+  data() {
     return {
       key: 1 // 为了能每次切换权限的时候重新初始化指令
     }
   },
   methods: {
     checkPermission,
-    handleRolesChange () {
+    handleRolesChange() {
       this.key++
     }
   }

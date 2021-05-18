@@ -46,20 +46,20 @@ import elementIcons from './element-icons'
 
 export default {
   name: 'Icons',
-  data () {
+  data() {
     return {
       svgIcons,
       elementIcons
     }
   },
   methods: {
-    generateIconCode (symbol) {
+    generateIconCode(symbol) {
       return `<svg-icon icon-class="${symbol}" />`
     },
-    generateElementIconCode (symbol) {
+    generateElementIconCode(symbol) {
       return `<i class="el-icon-${symbol}" />`
     },
-    handleClipboard (text, event) {
+    handleClipboard(text, event) {
       clipboard(text, event)
     }
   }

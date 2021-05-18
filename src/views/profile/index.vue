@@ -38,7 +38,7 @@ import Account from './components/Account'
 export default {
   name: 'Profile',
   components: { UserCard, Activity, Timeline, Account },
-  data () {
+  data() {
     return {
       user: {},
       activeTab: 'activity'
@@ -51,11 +51,11 @@ export default {
       'roles'
     ])
   },
-  created () {
+  created() {
     this.getUser()
   },
   methods: {
-    getUser () {
+    getUser() {
       this.user = {
         name: this.name,
         role: this.roles.join(' | '),
