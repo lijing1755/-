@@ -52,16 +52,21 @@ module.exports = {
   },
   devServer: {
     open: true,
+    host: 'localhost',
+    port: 8008,
+    https: false,
+    hotOnly: false,
+    inline: true,
     proxy: {
-      '/system': {
+      '/operationApi': {
         target: 'http://dev.operation.lekebaba.cn',
-        we:true,
-        changeOrigin: true,  //配置跨域
+        we: true,
+        changeOrigin: true, // 配置跨域
         pathRewrite: {
-          '^/system': ''
+          '^/operationApi': ''
         }
       }
     }
-  },
- 
+  }
+
 }
