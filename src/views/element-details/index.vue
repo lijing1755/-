@@ -111,9 +111,9 @@
                 </el-radio-group>
             </div>
             <div class="list-select">
-                <div class="select-title">
-                {{list1[checkIndex].type==1?'更换图片':'组件背景图'}}
-                <img class="delimage" :src="delimage" alt="" srcset="">
+                <div class="select-title-imag">
+                  {{list1[checkIndex].type==1?'更换图片':'组件背景图'}}
+                  <img class="delimage" @click='delteImage' :src="delimage" alt="" srcset="">
                 </div>
                 <div class="chek-image-box" v-if="list1[checkIndex].type=='1'">
                     <img class="icon-image"  v-if="list1[checkIndex].url_pic==''" :src="require('@/assets/image/images.png')" alt="">
@@ -133,7 +133,7 @@
                     :on-success='success'
                     :on-error='errorr'
                     >
-                    <button class="checkiamge">更换图片</button>
+                    <el-button type="primary" class="checkiamge">更换图片</el-button>
                 </el-upload>
 
             </div>
@@ -148,8 +148,8 @@
                 <el-input v-model="list1[checkIndex].url_name" placeholder="请输入"></el-input>
             </div>
             <div class="list-select">
-               <el-button type="danger" @click="delitem">删除</el-button>
-               <el-button type="danger" @click="delall">清空</el-button>
+               <el-button type="danger" @click="delitem">删除当前</el-button>
+               <el-button type="danger" @click="delall">清空所有</el-button>
             </div>
         </div>  
         
@@ -233,6 +233,14 @@ export default {
     this.getModelList()
   },
   methods: {
+    delteImage (){
+      if(this.list1[this.checkIndex].type=='1'){
+        this.list1[this.checkIndex].url_pic=''
+      }else{
+        this.list1[this.checkIndex].good_bg_pic=''
+      }
+      
+    },
     delall (){
       this.list1=[]
       this.checkIndex = -1
@@ -346,6 +354,14 @@ export default {
 </script>
  
 <style rel="stylesheet/scss" lang="scss" scoped>
+    .select-title-imag{
+      display: flex;
+      justify-content: space-between;
+    }
+    .delimage{
+      width: 20px;
+      height: 20px;
+    }
     .head{
         display: flex;
         justify-content: center;
@@ -619,8 +635,5 @@ export default {
   .nameinput{
     margin-right: 20px;
   }
-  .delimage{
-    width: 10px;
-    height: 20px;
-  }
+  
 </style>
