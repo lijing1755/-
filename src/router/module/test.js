@@ -9,6 +9,7 @@ export default function(Layout) {
       title: 'excel',
       icon: 'excel'
     },
+    hidden: true,
     children: [{
       path: 'export-excel',
       component: () => import('@/views/excel/exportExcel'),

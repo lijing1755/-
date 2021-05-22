@@ -85,8 +85,10 @@
             })
         },
         topage (id){
+            console.log("路由",this.$router)
             this.$router.push({
-                path:"./activityData",
+                // path:"../../../element-details",
+                name:'element-details',
                 query: {
                     id:id || 0
                 }

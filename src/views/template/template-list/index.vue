@@ -79,7 +79,8 @@
         },
         topage (id){
             this.$router.push({
-                path:"./modelList",
+                // path:"../template/template-details",
+                name:'template-details-index',
                 query: {
                     id:id || 0
                 }
