@@ -26,7 +26,7 @@
             <svg-icon icon-class="eye" />
           </span>
         </el-form-item>
-        <el-form-item prop="captchaInput">
+        <!-- <el-form-item prop="captchaInput">
           <span class="svg-container">
             <svg-icon icon-class="captcha" />
           </span>
@@ -41,7 +41,7 @@
           <span @click="replaceCaptcha">
             <img :src="'data:image/png;base64,' + captchaBase64Img" class="captcha-img">
           </span>
-        </el-form-item>
+        </el-form-item> -->
         <el-form-item>
           <el-button :loading="loading" type="primary" style="width:100%;" @click.native.prevent="handleLogin">
             登陆

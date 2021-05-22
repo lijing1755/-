@@ -27,6 +27,9 @@ import constant from '../static/utils/constant.js'
 import { exportExcel } from '@/utils/exportExcel.js'
 import VueDirectiveImagePreviewer from 'vue-directive-image-previewer'
 import 'vue-directive-image-previewer/dist/assets/style.css'
+import waterfall from 'vue-waterfall2'
+
+Vue.use(waterfall)
 Vue.use(VueDirectiveImagePreviewer)
 
 // 修改 el-dialog 默认点击遮照为不关闭

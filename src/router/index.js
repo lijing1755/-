@@ -12,6 +12,7 @@ import Layout from '../views/layout/Layout'
 import { listMyTree as listElementTree } from '@/api/system/element'
 import path from 'path'
 import test from "./module/test"
+// import activity from "./module/activity"
 /**
 * hidden: true                   if `hidden:true` will not show in the sidebar(default is false)
 * alwaysShow: true               if set true, will always show the root menu, whatever its child routes length
@@ -36,8 +37,8 @@ export const constantRouterMap = [{
             import ('@/views/404'),
         hidden: true
     },
-    ...(test(Layout))
-
+    ...(test(Layout)),
+    // ...(activity(Layout))
     // {
     //   path: '/',
     //   component: Layout,
