@@ -9,10 +9,10 @@
       <breadcrumb />
       <el-dropdown class="avatar-container" trigger="click">
         <div class="">
-          <svg-icon icon-class="user" style="margin-right:10px" />
-          <span style="margin-right:10px">{{ user_nickname }}</span>
-          <span style="margin-right:10px">{{ name }}</span>
-          <i class="el-icon-caret-bottom" />
+          <svg-icon icon-class="user" style="margin-right:10px;color:#fff;" />
+          <span style="margin-right:10px;color:#fff;">{{ user_nickname }}</span>
+          <span style="margin-right:10px;color:#fff;">{{ name }}</span>
+          <i class="el-icon-caret-bottom" style="color:#fff;" />
         </div>
         <el-dropdown-menu slot="dropdown" class="user-dropdown">
           <!-- <router-link class="inlineBlock" to="/"> -->
@@ -99,12 +99,14 @@ export default {
 .navbar {
   height: 50px;
   line-height: 50px;
+  background: #2DB7FF;
   border-radius: 0px !important;
   .hamburger-container {
     line-height: 58px;
     height: 50px;
     float: left;
     padding: 0 10px;
+    color: #FFF;
   }
   .screenfull {
     position: absolute;

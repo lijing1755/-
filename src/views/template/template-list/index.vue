@@ -1,13 +1,14 @@
 
 <template>
-  <div class="activity">
-      <div class="topadd">
+  <div class="app-container">
+    <div class="app_content">
+        <div class="topadd">
           <el-button size='small ' icon="el-icon-plus" type="primary" @click="topage(0)">新增</el-button>
       </div>
       <div class="tab">
         <el-table
             :data="tableData"
-            border
+            stripe
             style="width: 100%">
             <el-table-column
             prop="name"
@@ -28,7 +29,7 @@
             </el-table-column>
             <el-table-column
             label="操作"
-          
+            width="200"
             align='center'>
             <template slot-scope="scope">
                 <div class="but">
@@ -38,6 +39,7 @@
             </template>
             </el-table-column>
         </el-table>
+      </div>
     </div>
   </div>
 </template>
@@ -79,7 +81,6 @@
         },
         topage (id){
             this.$router.push({
-                // path:"../template/template-details",
                 name:'template-details-index',
                 query: {
                     id:id || 0
@@ -128,9 +129,7 @@
     justify-content: flex-start;
     margin-bottom: 20px;
 }
-.tab{
-    width: 80%;
-}
+
 .but{
     display: flex;
     justify-content: space-around;

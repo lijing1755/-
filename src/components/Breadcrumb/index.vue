@@ -85,7 +85,7 @@ export default {
   .no-redirect {
     display: flex;
     align-items: center;
-    color: #97a8be;
+    color: #fff;
     cursor: text;
   }
 }

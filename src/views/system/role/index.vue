@@ -32,7 +32,7 @@
       <el-table
         v-loading="listLoading"
         :data="list"
-        border
+        stripe
         highlight-current-row
         style="width: 100%;"
       >

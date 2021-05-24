@@ -1,7 +1,7 @@
 <template>
-  <div class="tags-view-container">
+  <!-- <div class="tags-view-container">
     <scroll-pane ref="scrollPane" class="tags-view-wrapper">
-      <!-- 主要是这里 -->
+     
       <router-link
         v-for="tag in visitedViews"
         ref="tag"
@@ -22,7 +22,7 @@
       <li @click="closeOthersTags">{{ $t('tagsView.closeOthers') }}</li>
       <li @click="closeAllTags">{{ $t('tagsView.closeAll') }}</li>
     </ul>
-  </div>
+  </div> -->
 </template>
 
 <script>

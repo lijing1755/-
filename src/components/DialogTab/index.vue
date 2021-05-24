@@ -24,13 +24,17 @@
       <el-table
     ref="multipleTable"
     :data="list"
+     height="500"
     tooltip-effect="dark"
     style="width: 100%"
+    @select='selectones'
+    @select-all='selectAll'
     @selection-change="handleSelectionChange"
     :row-key="getRowKey">
     <el-table-column
       type="selection"
       :reserve-selection="true"
+      
       width="55">
     </el-table-column>
     <el-table-column
@@ -44,7 +48,7 @@
     <el-table-column
       prop="goods_name"
       label="商品名称"
-      width="220">
+      align="center">
     </el-table-column>
     <el-table-column
       prop="goods_remark"
@@ -56,7 +60,7 @@
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
       :current-page.sync="page.current_page"
-      :page-sizes="[15, 20, 50, 100]"
+      :page-sizes="['15', '20', '50', '100']"
       :page-size="page.per_page"
       layout="sizes,total, prev, pager, next"
       :total="page.total">
@@ -77,7 +81,14 @@ import {
 export default{
     name: 'dialogTab',
     props: {
-       
+       checkList:{
+           type: Array,
+           default: []
+       }
+        
+    },
+    mounted (){
+         
         
     },
     data(){
@@ -92,16 +103,46 @@ export default{
             page:{
                 current_page:'1',
                 total:null,
-                per_page:15,
+                per_page:'15',
                 last_page:0
             },
             searchValue:''
         }
     },
     created(){
+        
         this.getModuleList()
     },
     methods:{
+        selectones(selection, row){
+            console.log(selection)
+            console.log(row)
+            this.$emit('selectOnes',row)
+        },
+        selectAll (selection){
+
+            let data={
+                type:1,
+                arr:this.list
+            }
+            if(selection.length==0){
+                data.type=2
+            }
+            this.$emit('selectAll',data)
+        },
+        checkGoodsInfo(){
+            this.list.forEach(item => {
+                let flag = false
+                this.checkList.forEach(it => {
+                    if(item.id == it.id){
+                        flag = true
+                    }
+                })
+                
+                this.$refs.multipleTable.toggleRowSelection(item,flag)
+             
+            })
+        },
         getRowKey (row){
             return row.id
         },
@@ -109,8 +150,9 @@ export default{
             this.$emit('close')
         },
         submit(){
-            // console.log(this.multipleSelection)
-            this.$emit('selectGoods',this.multipleSelection)
+            console.log(this.multipleSelection)
+            // this.checkList= []
+            this.$emit('selectGoods')
         },
         handleCurrentChange (val){
             this.page.current_page = val
@@ -147,9 +189,10 @@ export default{
                 this.page={
                     current_page: res.data.current_page,
                     total: res.data.total,
-                    per_page: res.data.per_page,
+                    per_page: res.data.per_page+'',
                     last_page:res.data.last_page,
                 }
+                this.checkGoodsInfo()
             })
         },
         check(value){
@@ -180,7 +223,6 @@ export default{
           this.getGoodsList()
       },
       handleSelectionChange(val) {
-          console.log(val)
         this.multipleSelection = val;
       }
     }

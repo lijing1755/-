@@ -1,51 +1,53 @@
 <template>
-  <div class="activity">
-      <div class="topadd">
-          <el-button size='small ' icon="el-icon-plus" type="primary" @click="topage(0)">新增</el-button>
-      </div>
-      <div class="tab">
-        <el-table
-            :data="tableData"
-            border
-            style="width: 100%">
-            <el-table-column
-            prop="name"
-            label="专区名称"
-            align='center'
-            width="200">
-            </el-table-column>
-            <el-table-column
-            prop="inter_url"
-            label="内页链接"
-            align='center'
-           >
-            </el-table-column>
-            <el-table-column
-            
-            label="创建时间"
-            align='center'
-            width="250">
-                <template slot-scope=scope>
-                    <div>
-                        <span>{{scope.row.create_time | formatTime}}</span>
+  <div class="app-container">
+      <div class="app_content">
+          <div class="topadd">
+            <el-button size='small ' icon="el-icon-plus" type="primary" @click="topage(0)">新增</el-button>
+          </div>
+          <div class="tab">
+            <el-table
+                :data="tableData"
+                stripe
+                style="width: 100%">
+                <el-table-column
+                prop="name"
+                label="专区名称"
+                align='center'
+                width="200">
+                </el-table-column>
+                <el-table-column
+                prop="inter_url"
+                label="内页链接"
+                align='center'
+            >
+                </el-table-column>
+                <el-table-column
+                
+                label="创建时间"
+                align='center'
+                width="250">
+                    <template slot-scope=scope>
+                        <div>
+                            <span>{{scope.row.create_time | formatTime}}</span>
+                        </div>
+                    </template>
+                </el-table-column>
+                <el-table-column
+                label="操作"
+                width="400"
+                
+                align='center'>
+                <template slot-scope="scope">
+                    <div class="but">
+                        <el-button size='small ' icon='el-icon-edit' type="primary" @click="topage(scope.row.id)">编辑</el-button>
+                        <el-button size='small ' icon='el-icon-s-operation' type="success" @click="analyse">数据分析</el-button>
+                        <el-button size='small ' icon='el-icon-delete' type="danger" @click='del(scope.$index)'>删除</el-button>
                     </div>
                 </template>
-            </el-table-column>
-            <el-table-column
-            label="操作"
-            width="400"
-            
-            align='center'>
-            <template slot-scope="scope">
-                <div class="but">
-                    <el-button size='small ' icon='el-icon-edit' type="primary" @click="topage(scope.row.id)">编辑</el-button>
-                    <el-button size='small ' icon='el-icon-s-operation' type="success" @click="analyse">数据分析</el-button>
-                    <el-button size='small ' icon='el-icon-delete' type="danger" @click='del(scope.$index)'>删除</el-button>
-                </div>
-            </template>
-            </el-table-column>
-        </el-table>
-    </div>
+              </el-table-column>
+            </el-table>
+          </div>
+      </div>
   </div>
 </template>
 
@@ -136,9 +138,7 @@
     justify-content: flex-start;
     margin-bottom: 20px;
 }
-.tab{
-    width: 80%;
-}
+
 .but{
     display: flex;
     justify-content: space-around;

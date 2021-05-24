@@ -1,6 +1,7 @@
 <template>
   <div>
-    <svg
+    <img :src="tabimage" style='width:20px;height:20px' alt="" :class="{'is-active':isActive}" srcset="" @click="toggleClick">
+    <!-- <svg
       :class="{'is-active':isActive}"
       t="1492500959545"
       class="hamburger"
@@ -26,7 +27,7 @@
         d="M966.8023 256.17345 57.196677 256.17345c-31.397081 0-56.850799-25.452695-56.850799-56.849776l0 0c0-31.397081 25.452695-56.850799 56.850799-56.850799l909.605623 0c31.397081 0 56.849776 25.452695 56.849776 56.850799l0 0C1023.653099 230.720755 998.200404 256.17345 966.8023 256.17345z"
         p-id="1694"
       />
-    </svg>
+    </svg> -->
   </div>
 </template>
 
@@ -42,7 +43,12 @@ export default {
       type: Function,
       default: null
     }
-  }
+  },
+  data() {
+    return {
+      tabimage:require('@/assets/image/tab.png'),
+    };
+  },
 }
 </script>
 

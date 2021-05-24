@@ -96,7 +96,7 @@ export default {
     }
   },
   created() {
-    this.replaceCaptcha()
+    // this.replaceCaptcha()
   },
   methods: {
     showPwd() {
@@ -117,19 +117,19 @@ export default {
 
           }).catch(() => {
             this.loading = false
-            this.replaceCaptcha()
+            // this.replaceCaptcha()
           })
         } else {
           return false
         }
       })
     },
-    replaceCaptcha() {
-      getCaptcha().then(res => {
-        this.loginForm.captcha_token = res.data.captcha_token
-        this.captchaBase64Img = res.data.captcha_base64_img
-      })
-    }
+    // replaceCaptcha() {
+    //   getCaptcha().then(res => {
+    //     this.loginForm.captcha_token = res.data.captcha_token
+    //     this.captchaBase64Img = res.data.captcha_base64_img
+    //   })
+    // }
   }
 }
 </script>

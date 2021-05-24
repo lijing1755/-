@@ -1,41 +1,45 @@
 <template>
   <div>
-    <div class="head">
-        <div class="head-cont">
-            <div class="nameinput">
-            <el-input v-model="modelName" placeholder="活动名称"></el-input>
-            </div>
-            <div class="select">
-                <el-dropdown size="small" split-button type="primary" @command='checkmodel'>
-                    {{modelIndex==-1?'模板选择':modelList[modelIndex].name}}
-                    <el-dropdown-menu slot="dropdown">
-                        <el-dropdown-item v-for='(item,index) in modelList' :key='index' :command="index">{{item.name}}</el-dropdown-item>
-                        
-                    </el-dropdown-menu>
-                </el-dropdown>
-            </div> 
-            <div class="submit">
-                <el-button type="primary" @click="submodel">保存</el-button>
-            </div>
-        </div>
-    </div>
+    
     <div class="dndList">
+        
         <div class="dndList-list">
-        <h3>基础组件</h3>
-        <draggable :list="list2" :options="{group:{name: falgs,pull:'clone'},filter: '.undraggable', sort: false}"
-                    @end="end"
-                    class="dragArea">
-            <div v-for="element in list2" :key="element.id" class="list-complete-item">
-              <div class="list-complete-item-handle2"> 
-                  <img class="list-image" :src="element.image" alt="" srcset="" >
-
+          <div class="head">
+            <div class="head-cont">
+              <div class="nameinput">
+              <el-input v-model="modelName" placeholder="活动名称"></el-input>
               </div>
-              <div class="name" >
-                  {{element.type==1?'图片':'商品'}}
-              </div>
+              <div class="select">
+                <el-dropdown size="small" split-button type="primary" @command='checkmodel'>
+                  {{modelIndex==-1?'模板选择':modelList[modelIndex].name}}
+                  <el-dropdown-menu slot="dropdown">
+                    <el-dropdown-item v-for='(item,index) in modelList' :key='index' :command="index">{{item.name}}</el-dropdown-item>
+                      
+                  </el-dropdown-menu>
+                </el-dropdown>
+              </div> 
+              <!-- <div class="submit">
+                <el-button type="primary" @click="submodel">保存</el-button>
+              </div> -->
             </div>
-            
-        </draggable>
+          </div>
+          <div class="compents">
+            <span>基础组件</span>
+            <draggable :list="list2" :options="{group:{name: falgs,pull:'clone'},filter: '.undraggable', sort: false}"
+                        @end="end"
+                        class="dragArea">
+                <div v-for="element in list2" :key="element.id" class="list-complete-item">
+                  <div class="list-complete-item-handle2"> 
+                      <img class="list-image" :src="element.image" alt="" srcset="" >
+
+                  </div>
+                  <div class="name" >
+                      {{element.type==1?'图片':'商品'}}
+                  </div>
+                </div>
+                
+            </draggable>
+          </div>
         </div>
         <div class="dndList-list-content">
           <div class="box_phone">
@@ -72,30 +76,39 @@
         
         <div class="dndList-list-select">
         <div v-if="checkIndex!=-1">
-            <div class="box-title">
-                {{list1[checkIndex].type==1?'图片':'商品'}}
+            <div class="list-select">
+               <div class="btnall">
+                <button  @click="delitem">删除当前</button>
+                <button  @click="delall">清空所有</button>
+                <button style="background:#FFC53D" @click="submodel">保存</button>
+               </div>
+              
             </div>
+            <!-- <div class="box-title">
+                {{list1[checkIndex].type==1?'图片':'商品'}}
+            </div> -->
             <div class="list-select" v-if='list1[checkIndex].type==2'>
                 <div class="select-title">
                     添加商品
-                </div>
-               <div class="goods-num" >
-                    <span> 商品数目：</span>
-                    <div style="width:200px">
-                        <span>{{goodsNum}}</span>款商品
-                       
+                    <div class="goods-num" >
+                      <span> 商品数目：</span>
+                      <div>
+                          <span>{{goodsNum}}</span>款商品
+                        
+                      </div>
                     </div>
-               </div>
+                </div>
+               
                 <div class="goods-list">
                     <div class="goods-li" v-for="(item,index) in list1[checkIndex].goods_list" :key='index'>
-                        <img :src="URL+item.goods_img" alt="">
+                        <img class="goods-li_img" :src="URL+item.goods_img" alt="">
                         <div class="goods-del" @click="del(index)">
-                            <i class="el-icon-error"></i>
+                            <img :src="delgoods" class="del_img" alt="" srcset="">
                         </div>
                         <!-- <span>{{item.title}}</span> -->
                     </div>
                     
-                    <div class='goods-add'  @click="dialogVisible = true">
+                    <div class='goods-add'  @click="openpop">
                         <i class="el-icon-plus"></i>
                     </div>
                 </div>
@@ -104,7 +117,7 @@
                 <div class="select-title">
                 列表样式
                 </div>
-                <el-radio-group v-model="list1[checkIndex].radio" @change='checklist'>
+                <el-radio-group style="margin:20px 0px" v-model="list1[checkIndex].radio" @change='checklist'>
                 <el-radio :label="1">瀑布流</el-radio>
                 <!-- <el-radio :label="2">单列</el-radio>
                 <el-radio :label="3">三列</el-radio> -->
@@ -141,16 +154,13 @@
                 <div class="select-title">
                 链接
                 </div>
-                <el-radio-group v-model="list1[checkIndex].url_type">
+                <el-radio-group style="margin:20px 0px" v-model="list1[checkIndex].url_type">
                 <el-radio :label="'1'">URL</el-radio>
                 <el-radio :label="'2'">商品ID</el-radio>
                 </el-radio-group>
                 <el-input v-model="list1[checkIndex].url_name" placeholder="请输入"></el-input>
             </div>
-            <div class="list-select">
-               <el-button type="danger" @click="delitem">删除当前</el-button>
-               <el-button type="danger" @click="delall">清空所有</el-button>
-            </div>
+            
         </div>  
         
         </div>
@@ -160,8 +170,9 @@
         title="添加商品"
         :visible.sync="dialogVisible"
         width="60%"
-        :before-close="handleClose">
-        <dialog-tab @selectGoods='selectGoods' @close='dialogVisible=false'></dialog-tab>
+        
+        >
+        <dialog-tab :checkList='goodsList' @selectOnes='selectOnes' @selectAll='selectAll' @selectGoods='selectGoods' @close='dialogVisible=false'></dialog-tab>
         
     </el-dialog>
   </div>        
@@ -183,6 +194,7 @@ export default {
   },
   data () {
     return {
+      delgoods:require('@/assets/image/delgoods.png'),
       delimage:require('@/assets/image/del.png'),
       URL:'https://jupinshop.oss-cn-shenzhen.aliyuncs.com/',
       goodsNum:0,
@@ -245,6 +257,10 @@ export default {
       this.list1=[]
       this.checkIndex = -1
     },
+    openpop (){
+      this.goodsList = this.list1[this.checkIndex].goods_list
+      this.dialogVisible = true
+    },
     checkmodel (val){//选择模板
         this.modelIndex = val
         this.list1 = this.modelList[val].assembly
@@ -298,13 +314,68 @@ export default {
         console.log(err)
     },
     selectGoods (data){
-         this.list1[this.checkIndex].goods_list = data
+        //  this.list1[this.checkIndex].goods_list = this.deweight([...this.list1[this.checkIndex].goods_list,...data],'id')
          this.goodsNum=this.list1[this.checkIndex].goods_list.length
          this.dialogVisible = false
     },  
+    selectOnes (data){
+      let flag =  -1
+      this.list1[this.checkIndex].goods_list.forEach((item,index) => {
+        if(item.id == data.id){
+          flag = index
+        }
+      })
+      if(flag==-1){
+        this.list1[this.checkIndex].goods_list.push(data)
+      }else{
+        this.list1[this.checkIndex].goods_list.splice(flag,1)
+      }
+      this.goodsNum=this.list1[this.checkIndex].goods_list.length
+    },
+    selectAll (data){
+      let temparr = this.list1[this.checkIndex].goods_list
+      let newarr = JSON.parse(JSON.stringify(data.arr))
+      for(let i = 0;i<temparr.length;i++){
+        for(let j = 0;j<newarr.length;j++){
+          // console.log(temparr[i].id+'======'+data.arr[j].id)
+          if(temparr[i].id == newarr[j].id){
+            if(data.type ==1){
+              newarr.splice(j,1)
+            }else{
+              temparr.splice(i,1)
+              i--
+            }
+            break;
+          }
+        }
+      }
+      if(data.type ==1){
+        this.list1[this.checkIndex].goods_list = [...this.list1[this.checkIndex].goods_list,...newarr]
+      }else if(data.type==2){
+        this.list1[this.checkIndex].goods_list = temparr
+      }
+
+      this.goodsNum=this.list1[this.checkIndex].goods_list.length
+
+    },
+    deweight (arr, key) {
+      let res = []
+      arr.forEach((item) => {
+          let list = []
+          res.forEach((resitem) => {
+            list.push(resitem[key])
+          })
+          if (list.indexOf(item[key]) === -1) {
+            res.push(item)
+          }
+      })
+      console.log(res)
+      return res
+    },
     del (index){
         this.goodsNum--
         this.list1[this.checkIndex].goods_list.splice(index,1)
+        this.goodsList = this.list1[this.checkIndex].goods_list
     },
     getModuleList (){
          activityInfo({
@@ -314,13 +385,13 @@ export default {
            this.list1 = res.data.assembly
         })
     },
-    handleClose (done) {
-        this.$confirm('商品未保存是否关闭？')
-          .then(_ => {
-            done();
-          })
-          .catch(_ => {});
-    },
+    // handleClose (done) {
+    //     this.$confirm('商品未保存是否关闭？')
+    //       .then(_ => {
+    //         done();
+    //       })
+    //       .catch(_ => {});
+    // },
     beforeAvatarUpload (file) {
       const isJPG = file.type === "image/jpeg";
       const isPNG = file.type === "image/png";
@@ -354,9 +425,26 @@ export default {
 </script>
  
 <style rel="stylesheet/scss" lang="scss" scoped>
+    .compents{
+      background: #FFF;
+      margin-top: 20px;
+      padding: 10px;
+      box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.05);
+      border-radius: 5px;
+    }
+    .del_img{
+      width: 10px;
+      height: 10px;
+    }
     .select-title-imag{
       display: flex;
+      font-size: 16px;
       justify-content: space-between;
+      align-content: center;
+    }
+    .select-title{
+      font-size: 16px;
+      display: flex;
     }
     .delimage{
       width: 20px;
@@ -365,14 +453,18 @@ export default {
     .head{
         display: flex;
         justify-content: center;
+        background: #fff;
+        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.05);
+        border-radius: 5px;
     }
     .head-cont{
         width: 100%;
-        padding:0 20px;
-        height: 60px;
-        border: 1px solid #ccc;
+        padding:10px 10px;
+        height: 300px;
+        // border: 1px solid #ccc;
         display: flex;
-        align-items: center;
+        align-items: flex-start;
+        justify-content: flex-start;
     }
     .name{
         // margin-right: 20px;
@@ -389,6 +481,10 @@ export default {
     }
     .checkiamge{
         margin-top: 20px;
+    }
+    .avatar-uploader {
+      display: flex;
+      justify-content: center;
     }
     .avatar-uploader .el-upload {
       border: 1px dashed #d9d9d9;
@@ -421,24 +517,46 @@ export default {
   }
   .list-select{
       padding: 20px;
-      border: 1px solid #CCC;
+      margin-bottom: 20px;
+      // border: 1px solid #CCC;
+      background: #FFF;
+      box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.05);
+      border-radius: 5px;
+  }
+  .btnall{
+    display: flex;
+    justify-content: space-between;
+  }
+  .btnall button{
+    width: 30%;
+    border: 0px;
+    background: #FF5D5D;
+    padding: 10px;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 14px;
+  }
+  .select{
+    width: 50%;
   }
   .goods-num{
-      display: flex;
-      align-items: center;
-      margin-bottom: 10px;
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+    color: #999999;
   }
   .chek-image-box{
-      width: 200px;
-      height: 100px;
-      border: 1px solid #ccc;
+      // width: 200px;
+      margin-top: 20px;
+      height:140px;
+      border: 1px dashed #ccc;
       display: flex;
       justify-content: center;
       align-items: center;
   }
   .check-image{
       width: auto;
-      max-height: 100px;
+      max-height: 140px;
   }
   .icon-image{
       width: 50px;
@@ -455,8 +573,8 @@ export default {
     align-items: center;
   }
   .dndList-list{
-    width: 250px;
-    border: 1px solid #ccc;
+    width: 330px;
+    // border: 1px solid #ccc;
   }
   .dndList-list-content{
     // width: 400px;
@@ -481,8 +599,8 @@ export default {
     padding: 10px;
   }
   .list-image{
-    width: 30px;
-    height: 30px;
+    width: 50px;
+    height: 50px;
     display:div
   }
   .image-box{
@@ -497,7 +615,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #f2f2f2;
+    background: #FFF;
     position: relative;
   }
   .list-image-item{
@@ -549,18 +667,18 @@ export default {
     width: 100%;
     display: flex;
     justify-content: space-between;
+    padding: 20px;
+    background: #FBFCFF;
   }
   .dragArea{
-    padding:20px;
+    padding:0px;
     display: flex;
     flex-flow: wrap-reverse;
-    justify-content: space-around;
+    justify-content: flex-start;
   }
   .list-complete-item {
     cursor: pointer;
     font-size: 14px;
-    margin-right: 20px;
-    margin-bottom: 20px;
     border: 1px solid #FFF;
     width: 70px;
     height: 90px;
@@ -611,8 +729,9 @@ export default {
       border-radius: 5px;
       position: relative;
       margin:0 10px 10px 0px;
+      background: #f2f2f2;
   }
-  .goods-li img{
+  .goods-li_img{
       width: 50px;
       height: 50px;
       border-radius: 5px;
@@ -620,8 +739,8 @@ export default {
   }
   .goods-del{
       position: absolute;
-      top: -5px;
-      right: -5px;
+      top: 0px;
+      right: 0px;
   }
   
   .goods-add{
@@ -634,6 +753,7 @@ export default {
   }
   .nameinput{
     margin-right: 20px;
+    width: 50%;
   }
   
 </style>

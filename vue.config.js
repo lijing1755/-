@@ -7,7 +7,7 @@ module.exports = {
   publicPath: process.env.VUE_APP_PUBLIC_PATH,
   outputDir: 'dist',
   // 放置静态资源的目录
-  assetsDir: 'static',
+  // assetsDir: 'src/assets',
   // html 的输出路径
   indexPath: 'index.html',
   // 文件名哈希
@@ -27,7 +27,7 @@ module.exports = {
 
   // 是否为生产环境构建生成 source map？
 
-  productionSourceMap: true,
+  productionSourceMap: false,
 
   // 设置生成的 HTML 中 <link rel="stylesheet"> 和 <script> 标签的 crossorigin 属性。
 
