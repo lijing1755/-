@@ -64,7 +64,7 @@
                 type="warning"
                 @click="cancelEdit(scope.row)"
               >
-                cancel
+                取消
               </el-button>
             </template>
             <span v-else>{{ scope.row.role_name }}</span>

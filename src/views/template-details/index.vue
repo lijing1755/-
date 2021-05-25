@@ -106,7 +106,7 @@
                         <!-- <span>{{item.title}}</span> -->
                     </div>
                     <!-- @click="addGoods"/ -->
-                    <div class='goods-add'  @click="dialogVisible = true">
+                    <div class='goods-add'  @click="openpop">
                         <i class="el-icon-plus"></i>
                     </div>
                 </div>
@@ -136,7 +136,7 @@
                 </div>
                 <el-upload
                     class="avatar-uploader"
-                    action="http://dev.operation.lekebaba.cn/system/uploadImage"
+                    :action="API"
                     name='uploadImageName'
                     accept="image/jpeg,image/png"
                     :show-file-list='false'
@@ -173,7 +173,7 @@
         width="60%"
         
         >
-        <dialog-tab :checkList='goodsList' @selectOnes='selectOnes' @selectAll='selectAll' @selectGoods='selectGoods' @close='dialogVisible=false'></dialog-tab>
+        <dialog-tab  v-if="dialogVisible==true"  :checkList='goodsList' @selectOnes='selectOnes' @selectAll='selectAll' @selectGoods='selectGoods' @close='dialogVisible=false'></dialog-tab>
         
     </el-dialog>
   </div>        
@@ -193,6 +193,7 @@ export default {
   },
   data () {
     return {
+      API:process.env.VUE_APP_API+'/system/uploadImage',
       delgoods:require('@/assets/image/delgoods.png'),
       delimage:require('@/assets/image/del.png'),
       URL:'https://jupinshop.oss-cn-shenzhen.aliyuncs.com/',
@@ -210,16 +211,17 @@ export default {
           name: 1,
           image:require('@/assets/image/images.png'),
           type:1,
-          radio:1,
+          radio:'1',
           url_pic:'',
-          url_type:'1'
+          url_type:'1',
+          url_name:''
         },
         {
           tid: 2,
           name: 2,
           image:require('@/assets/image/goods.png'),
           type:2,
-          radio:1,
+          radio:'1',
           good_bg_pic:'',
           goods_list:[]
         }
@@ -263,10 +265,23 @@ export default {
     }, 
     submodel (){
         console.log(this.list1)
+        console.log(this.list1)
+        let temp = this.list1
+        let list = JSON.parse(JSON.stringify(temp))
+        for(let i = 0;i<list.length;i++){
+          if(list[i].type=='2'){
+            let arr = [];
+            list[i].goods_list.forEach( (item, index) => {
+              arr.push(item.id);
+            })
+            list[i].goods_type=list[i].radio
+            list[i].good_ids=arr.join(',')
+          }
+        }
       editModule({
           'id':this.modelId?this.modelId:'',
           'name':this.modelName,
-          'assembly':this.list1
+          'assembly':list
       }).then(res => {
           console.log('返回的参数')
           console.log(res)
@@ -277,12 +292,16 @@ export default {
       })
     },
     success(response, file, fileList){
-        if(this.list1[this.checkIndex].type==1){
-          this.list1[this.checkIndex].url_pic = this.URL+response.imgPath;
-        }else{
-          this.list1[this.checkIndex].good_bg_pic = this.URL+response.imgPath;
-        }
-      },
+      if(this.list1[this.checkIndex].type==1){
+        this.list1[this.checkIndex].url_pic = this.URL+response.imgPath;
+      }else{
+        this.list1[this.checkIndex].good_bg_pic = this.URL+response.imgPath;
+      }
+    },
+    openpop (){
+      this.goodsList = this.list1[this.checkIndex].goods_list
+      this.dialogVisible = true
+    },
     errorr(err, file, fileList){
         console.log(err)
     },

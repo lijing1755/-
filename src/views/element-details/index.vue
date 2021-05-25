@@ -1,164 +1,151 @@
 <template>
-  <div>
-    
-    <div class="dndList">
-        
-        <div class="dndList-list">
-          <div class="head">
-            <div class="head-cont">
-              <div class="nameinput">
+  <div> 
+    <div class="dndList"> 
+      <div class="dndList-list">
+        <div class="head">
+          <div class="head-cont">
+            <div class="nameinput">
               <el-input v-model="modelName" placeholder="活动名称"></el-input>
-              </div>
-              <div class="select">
-                <el-dropdown size="small" split-button type="primary" @command='checkmodel'>
-                  {{modelIndex==-1?'模板选择':modelList[modelIndex].name}}
-                  <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item v-for='(item,index) in modelList' :key='index' :command="index">{{item.name}}</el-dropdown-item>
-                      
-                  </el-dropdown-menu>
-                </el-dropdown>
-              </div> 
-              <!-- <div class="submit">
-                <el-button type="primary" @click="submodel">保存</el-button>
-              </div> -->
             </div>
-          </div>
-          <div class="compents">
-            <span>基础组件</span>
-            <draggable :list="list2" :options="{group:{name: falgs,pull:'clone'},filter: '.undraggable', sort: false}"
-                        @end="end"
-                        class="dragArea">
-                <div v-for="element in list2" :key="element.id" class="list-complete-item">
-                  <div class="list-complete-item-handle2"> 
-                      <img class="list-image" :src="element.image" alt="" srcset="" >
-
-                  </div>
-                  <div class="name" >
-                      {{element.type==1?'图片':'商品'}}
-                  </div>
-                </div>
-                
-            </draggable>
+            <div class="select">
+              <el-dropdown size="small" split-button type="primary" @command='checkmodel'>
+                {{modelIndex==-1?'模板选择':modelList[modelIndex].name}}
+                <el-dropdown-menu slot="dropdown">
+                  <el-dropdown-item v-for='(item,index) in modelList' :key='index' :command="index">{{item.name}}</el-dropdown-item>   
+                </el-dropdown-menu>
+              </el-dropdown>
+            </div> 
           </div>
         </div>
-        <div class="dndList-list-content">
-          <div class="box_phone">
-            <img :src="iphone" class="phone" alt="" srcset="">
-            <div class="box_view">
-              <div class="box">
-                <draggable :list="list1" :options="{group:'article', disabled: disabled}"
-                        @start="start22"
-                        @end="end22"
-                        class="dragArea11"
-                        style="height: 100px">
-                <div v-for="(element,index) in list1" :key="element.id" class="list-complete-iteme" @click="check(index)">
-                <div class="list-complete-item-handle" v-if="element.type==1">
-                    <div class="image-box">
-                        <img v-if="element.url_pic==''" class="list-image-item" :src="image" alt="" srcset="">
-                        <img v-else class="list-image-checkImage" :src="element.url_pic" alt="" srcset="">
-                    </div>
-                </div>
-                <div class='list-complete-item-handle' v-else>
-                
-                    <div class="image-box-goods">
-                        <goods-waterfall :list='element.goods_list'></goods-waterfall>
-                        <img class="goods-list-image-checkImage" :src="element.good_bg_pic" alt="" srcset="">
-                    </div>
-                </div>
-                </div>
-                </draggable>
+        <div class="compents">
+          <span>基础组件</span>
+          <draggable :list="list2" :options="{group:{name: falgs,pull:'clone'},filter: '.undraggable', sort: false}"
+                      @end="end"
+                      class="dragArea">
+            <div v-for="element in list2" :key="element.id" class="list-complete-item">
+              <div class="list-complete-item-handle2"> 
+                  <img class="list-image" :src="element.image" alt="" srcset="" >
+              </div>
+              <div class="name" >
+                  {{element.type==1?'图片':'商品'}}
               </div>
             </div>
-          </div>
-       
-        
+          </draggable>
         </div>
-        
+      </div>
+      <div class="dndList-list-content">
+        <div class="box_phone">
+          <img :src="iphone" class="phone" alt="" srcset="">
+          <div class="box_view">
+            <div class="box">
+              <draggable :list="list1" :options="{group:'article', disabled: disabled}"
+                      @start="start22"
+                      @end="end22"
+                      class="dragArea11"
+                      style="height: 100px">
+              <div v-for="(element,index) in list1" :key="element.id" class="list-complete-iteme" @click="check(index)">
+              <div class="list-complete-item-handle" v-if="element.type==1">
+                <div class="image-box">
+                  <img v-if="element.url_pic==''" class="list-image-item" :src="image" alt="" srcset="">
+                  <img v-else class="list-image-checkImage" :src="element.url_pic" alt="" srcset="">
+                </div>
+              </div>
+              <div class='list-complete-item-handle' v-else>
+                <div class="image-box-goods">
+                  <goods-waterfall :list='element.goods_list'></goods-waterfall>
+                  <img class="goods-list-image-checkImage" :src="element.good_bg_pic" alt="" srcset="">
+                </div>
+              </div>
+              </div>
+              </draggable>
+            </div>
+          </div>
+        </div>
+      </div>
         <div class="dndList-list-select">
-        <div v-if="checkIndex!=-1">
+          <div v-if="checkIndex!=-1">
             <div class="list-select">
-               <div class="btnall">
+              <div class="btnall">
                 <button  @click="delitem">删除当前</button>
                 <button  @click="delall">清空所有</button>
                 <button style="background:#FFC53D" @click="submodel">保存</button>
-               </div>
-              
+              </div>
             </div>
             <!-- <div class="box-title">
                 {{list1[checkIndex].type==1?'图片':'商品'}}
             </div> -->
             <div class="list-select" v-if='list1[checkIndex].type==2'>
-                <div class="select-title">
-                    添加商品
-                    <div class="goods-num" >
-                      <span> 商品数目：</span>
-                      <div>
-                          <span>{{goodsNum}}</span>款商品
-                        
-                      </div>
-                    </div>
-                </div>
-               
-                <div class="goods-list">
-                    <div class="goods-li" v-for="(item,index) in list1[checkIndex].goods_list" :key='index'>
-                        <img class="goods-li_img" :src="URL+item.goods_img" alt="">
-                        <div class="goods-del" @click="del(index)">
-                            <img :src="delgoods" class="del_img" alt="" srcset="">
-                        </div>
-                        <!-- <span>{{item.title}}</span> -->
-                    </div>
+              <div class="select-title">
+                添加商品
+                <div class="goods-num" >
+                  <span> 商品数目：</span>
+                  <div>
+                    <span>{{goodsNum}}</span>款商品
                     
-                    <div class='goods-add'  @click="openpop">
-                        <i class="el-icon-plus"></i>
-                    </div>
+                  </div>
                 </div>
+              </div>
+               
+              <div class="goods-list">
+                <div class="goods-li" v-for="(item,index) in list1[checkIndex].goods_list" :key='index'>
+                  <img class="goods-li_img" :src="URL+item.goods_img" alt="">
+                  <div class="goods-del" @click="del(index)">
+                      <img :src="delgoods" class="del_img" alt="" srcset="">
+                  </div>
+                  <!-- <span>{{item.title}}</span> -->
+                </div>
+                  
+                <div class='goods-add'  @click="openpop">
+                  <i class="el-icon-plus"></i>
+                </div>
+              </div>
             </div>
             <div class="list-select" v-if='list1[checkIndex].type==2'>
-                <div class="select-title">
-                列表样式
-                </div>
-                <el-radio-group style="margin:20px 0px" v-model="list1[checkIndex].radio" @change='checklist'>
-                <el-radio :label="'1'">瀑布流</el-radio>
-                <!-- <el-radio :label="2">单列</el-radio>
-                <el-radio :label="3">三列</el-radio> -->
-                </el-radio-group>
+              <div class="select-title">
+              列表样式
+              </div>
+              <el-radio-group style="margin:20px 0px" v-model="list1[checkIndex].radio" @change='checklist'>
+              <el-radio :label="'1'">瀑布流</el-radio>
+              <!-- <el-radio :label="2">单列</el-radio>
+              <el-radio :label="3">三列</el-radio> -->
+              </el-radio-group>
             </div>
             <div class="list-select">
-                <div class="select-title-imag">
-                  {{list1[checkIndex].type==1?'更换图片':'组件背景图'}}
-                  <img class="delimage" @click='delteImage' :src="delimage" alt="" srcset="">
-                </div>
-                <div class="chek-image-box" v-if="list1[checkIndex].type=='1'">
-                    <img class="icon-image"  v-if="list1[checkIndex].url_pic==''" :src="require('@/assets/image/images.png')" alt="">
-                    <img class="check-image" v-else :src="list1[checkIndex].url_pic" alt="">
-                </div>
-                <div class="chek-image-box" v-if="list1[checkIndex].type=='2'">
-                    <img class="icon-image"  v-if="list1[checkIndex].good_bg_pic==''" :src="require('@/assets/image/images.png')" alt="">
-                    <img class="check-image" v-else :src="list1[checkIndex].good_bg_pic" alt="">
-                </div>
-                <el-upload
-                    class="avatar-uploader"
-                    action="http://dev.operation.lekebaba.cn/system/uploadImage"
-                    name='uploadImageName'
-                    accept="image/jpeg,image/png"
-                    :show-file-list='false'
-                    :before-upload="beforeAvatarUpload"
-                    :on-success='success'
-                    :on-error='errorr'
-                    >
-                    <el-button type="primary" class="checkiamge">更换图片</el-button>
-                </el-upload>
+              <div class="select-title-imag">
+                {{list1[checkIndex].type==1?'更换图片':'组件背景图'}}
+                <img class="delimage" @click='delteImage' :src="delimage" alt="" srcset="">
+              </div>
+              <div class="chek-image-box" v-if="list1[checkIndex].type=='1'">
+                  <img class="icon-image"  v-if="list1[checkIndex].url_pic==''" :src="require('@/assets/image/images.png')" alt="">
+                  <img class="check-image" v-else :src="list1[checkIndex].url_pic" alt="">
+              </div>
+              <div class="chek-image-box" v-if="list1[checkIndex].type=='2'">
+                  <img class="icon-image"  v-if="list1[checkIndex].good_bg_pic==''" :src="require('@/assets/image/images.png')" alt="">
+                  <img class="check-image" v-else :src="list1[checkIndex].good_bg_pic" alt="">
+              </div>
+              <el-upload
+                class="avatar-uploader"
+                :action="API"
+                name='uploadImageName'
+                accept="image/jpeg,image/png"
+                :show-file-list='false'
+                :before-upload="beforeAvatarUpload"
+                :on-success='success'
+                :on-error='errorr'
+                >
+                <el-button type="primary" class="checkiamge">更换图片</el-button>
+              </el-upload>
 
             </div>
             <div class="list-select" v-if='list1[checkIndex].type==1'>
-                <div class="select-title">
-                链接
-                </div>
-                <el-radio-group style="margin:20px 0px" v-model="list1[checkIndex].url_type">
-                <el-radio :label="'1'">URL</el-radio>
-                <el-radio :label="'2'">商品ID</el-radio>
-                </el-radio-group>
-                <el-input v-model="list1[checkIndex].url_name" placeholder="请输入"></el-input>
+              <div class="select-title">
+              链接
+              </div>
+              <el-radio-group style="margin:20px 0px" v-model="list1[checkIndex].url_type">
+              <el-radio :label="'1'">URL</el-radio>
+              <el-radio :label="'2'">商品ID</el-radio>
+              </el-radio-group>
+              <el-input v-model="list1[checkIndex].url_name" placeholder="请输入"></el-input>
             </div>
             
         </div>  
@@ -170,9 +157,8 @@
         title="添加商品"
         :visible.sync="dialogVisible"
         width="60%"
-        
         >
-        <dialog-tab :checkList='goodsList' @selectOnes='selectOnes' @selectAll='selectAll' @selectGoods='selectGoods' @close='dialogVisible=false'></dialog-tab>
+        <dialog-tab v-if="dialogVisible==true" :checkList='goodsList' @selectOnes='selectOnes' @selectAll='selectAll' @selectGoods='selectGoods' @close='dialogVisible=false'></dialog-tab>
         
     </el-dialog>
   </div>        
@@ -194,6 +180,7 @@ export default {
   },
   data () {
     return {
+      API:process.env.VUE_APP_API+'/system/uploadImage',
       delgoods:require('@/assets/image/delgoods.png'),
       delimage:require('@/assets/image/del.png'),
       URL:'https://jupinshop.oss-cn-shenzhen.aliyuncs.com/',
@@ -211,16 +198,17 @@ export default {
           name: 1,
           image:require('@/assets/image/images.png'),
           type:1,
-          radio:1,
+          radio:'1',
           url_pic:'',
-          url_type:'1'
+          url_type:'1',
+          url_name:''
         },
         {
           tid: 2,
           name: 2,
           image:require('@/assets/image/goods.png'),
           type:2,
-          radio:1,
+          radio:'1',
           good_bg_pic:'',
           goods_list:[]
         }
@@ -264,7 +252,7 @@ export default {
     checkmodel (val){//选择模板
         this.modelIndex = val
         this.list1 = this.modelList[val].assembly
-        this.modelId = this.modelList[val].id
+        // this.modelId = this.modelList[val].id
         this.modelName = this.modelList[val].name
     },
     getModelList (){
@@ -287,6 +275,7 @@ export default {
             list[i].goods_list.forEach( (item, index) => {
               arr.push(item.id);
             })
+            list[i].goods_type=list[i].radio
             list[i].good_ids=arr.join(',')
           }
         }

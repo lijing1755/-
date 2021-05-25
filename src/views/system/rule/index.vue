@@ -28,7 +28,7 @@
           <template v-if="scope.row.edit">
             <el-input v-model="scope.row.rule_name" class="edit-input" size="mini" />
             <el-button class="cancel-btn" size="mini" icon="el-icon-refresh" type="warning" @click="cancelEdit(scope.row)">
-              cancel
+              取消
             </el-button>
           </template>
           <span v-else>{{ scope.row.rule_name }}</span>
