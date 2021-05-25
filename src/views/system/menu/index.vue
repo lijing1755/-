@@ -19,7 +19,7 @@
       <span slot-scope="{ node, data }" class="custom-tree-node">
         <span>{{ node.label }}</span>
         <span>
-          <el-button type="text" size="mini" @click="handleEditNode(data)">
+          <el-button type="primary" size="mini" @click="handleEditNode(data)">
             编辑
           </el-button>
           <!-- <el-button
@@ -30,7 +30,7 @@
             插入
           </el-button> -->
           <el-button
-            type="text"
+            type="warning"
             size="mini"
             @click="handleAppendNode(node, data)"
           >
@@ -59,7 +59,7 @@
             <el-button
               slot="reference"
               size="mini"
-              type="text"
+              type="danger"
               style="margin-left: 10px"
               >删除</el-button
             >
@@ -372,6 +372,13 @@ export default {
 </script>
 
 <style>
+.el-tree-node__content{
+  height: 50px;
+  /* background: #E3E8F3; */
+}
+.el-tree-node__children{
+  background: #fff;
+}
 .custom-tree-node {
   flex: 1;
   display: flex;
@@ -379,5 +386,7 @@ export default {
   justify-content: space-between;
   font-size: 14px;
   padding-right: 8px;
+  height: 50px;
 }
+
 </style>

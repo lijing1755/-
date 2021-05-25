@@ -1,5 +1,5 @@
 <template>
-  <!-- <div class="tags-view-container">
+  <div class="tags-view-container">
     <scroll-pane ref="scrollPane" class="tags-view-wrapper">
      
       <router-link
@@ -22,7 +22,7 @@
       <li @click="closeOthersTags">{{ $t('tagsView.closeOthers') }}</li>
       <li @click="closeAllTags">{{ $t('tagsView.closeAll') }}</li>
     </ul>
-  </div> -->
+  </div> 
 </template>
 
 <script>

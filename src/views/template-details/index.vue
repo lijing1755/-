@@ -116,7 +116,7 @@
                 列表样式
                 </div>
                 <el-radio-group v-model="list1[checkIndex].radio" @change='checklist'>
-                <el-radio :label="1">瀑布流</el-radio>
+                <el-radio :label="'1'">瀑布流</el-radio>
                 <!-- <el-radio :label="2">单列</el-radio>
                 <el-radio :label="3">三列</el-radio> -->
                 </el-radio-group>
@@ -447,6 +447,7 @@ export default {
   .delimage{
     width: 20px;
     height: 20px;
+    cursor: pointer;
   }
   .head{
       display: flex;
@@ -734,6 +735,7 @@ export default {
     position: absolute;
     top: 0px;
     right: 0px;
+    cursor: pointer;
   }
   
   .goods-add{

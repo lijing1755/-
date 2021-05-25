@@ -9,11 +9,11 @@
       text-color="#FFFFFF"
       active-text-color="#ffffff"
     >
-    <el-menu-item index="1">
+    <!-- <el-menu-item index="1">
       <template>
         <div style="width:100%; font-size:20px">{{systemName}}</div>
       </template>
-    </el-menu-item>
+    </el-menu-item> -->
       <sidebar-item v-for="route in permission_routers" :key="route.path" :item="route" :base-path="route.path" />
     </el-menu>
   </el-scrollbar>
