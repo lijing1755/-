@@ -1,8 +1,8 @@
 <template>
-  <div class="login-container">
-    <vue-particle-line>
+  <div class="login-container" :style="{backgroundImage:'url('+require('../../assets/image/loginbg.jpg')+')'}">
+    <vue-particle-line style="background:rgba(0,0,0,0.7)">
       <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
-        <h3 class="title">
+        <h3 class="title" style="border:0px">
           {{systemName}}
         </h3>
         <el-form-item prop="userName">
@@ -68,6 +68,7 @@ export default {
       callback()
     }
     return {
+      bgimage:require('@/assets/image/loginbg.jpg'),
       loginForm: {
         user_name: '',
         password: '',
@@ -176,7 +177,9 @@ $light_gray:#eee;
   position: absolute;
   height: 100%;
   width: 100%;
-  background-color: $bg;
+  background-repeat:no-repeat;
+  background-size:100% 100%;
+  -moz-background-size:100% 100%;
   .login-form {
     z-index: 1;
     position: absolute;
