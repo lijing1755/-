@@ -206,6 +206,9 @@ export default{
         this.$refs.multipleTable.toggleRowSelection(rows);
       },
       refresh (){
+        this.business_name = '选择店铺'
+        this.store_id = null
+        this.searchValue = ''
         this.page.current_page='1'
         this.getGoodsList()
       },
