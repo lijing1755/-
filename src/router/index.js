@@ -11,7 +11,6 @@ import Layout from '../views/layout/Layout'
 
 import { listMyTree as listElementTree } from '@/api/system/element'
 import path from 'path'
-import test from "./module/test"
 import template from "./module/template"
 import element from "./module/element"
 /**
@@ -38,7 +37,6 @@ export const constantRouterMap = [{
             import ('@/views/404'),
         hidden: true
     },
-    ...(test(Layout)),
     ...(template(Layout)),
     ...(element(Layout))
     // {

@@ -342,15 +342,6 @@ export default {
            this.modelName = res.data.name
         })
     },
- 
-    addGoods (){
-        this.goodsList.push({
-            image:require('@/assets/image/imagess.png'),
-            title:'夏日手机卡和纳税和纳税和纳税',
-            is_happy:1,
-            is_group:1
-          })
-    },
 
     selectOnes (data){
       let flag =  -1

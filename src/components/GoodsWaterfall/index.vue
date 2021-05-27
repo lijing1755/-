@@ -38,22 +38,8 @@ export default{
     data(){
         return{
             URL:'https://jupinshop.oss-cn-shenzhen.aliyuncs.com',
-            data:[
-                {
-                    image:require('@/assets/image/imagess.png'),
-                    title:'夏日手机卡和纳税和纳税和纳税',
-                    is_happy:1,
-                    is_group:1
-                },
-                {
-                    image:require('@/assets/image/imagess.png'),
-                    title:'夏日手机卡和纳税和纳税和纳税和纳税和纳税',
-                    is_happy:1,
-                    is_group:1
-                }
-            ],
+            data:[],
             col:2,
-            image:require('@/assets/image/imagess.png')
         }
     },
     
