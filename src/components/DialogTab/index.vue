@@ -1,5 +1,10 @@
 <template>
-  <div class="container-water-fall" v-if='shopList'>
+  <div
+    v-loading="loading"
+      element-loading-text="拼命加载中"
+      element-loading-spinner="el-icon-loading"
+      element-loading-background="rgba(0, 0, 0, 0.8)"
+   class="container-water-fall" v-if='shopList'>
       <div style='display:flex'>
         <div>
             店铺
@@ -19,14 +24,15 @@
         </div>
       </div>
       <el-table
-    ref="multipleTable"
-    :data="list"
-     height="500"
-    tooltip-effect="dark"
-    style="width: 100%"
-    @select='selectones'
-    @select-all='selectAll'
-    @selection-change="handleSelectionChange"
+      
+      ref="multipleTable"
+      :data="list"
+      height="500"
+      tooltip-effect="dark"
+      style="width: 100%"
+      @select='selectones'
+      @select-all='selectAll'
+      @selection-change="handleSelectionChange"
     >
     <el-table-column
       type="selection"
@@ -96,6 +102,7 @@ export default{
     },
     data(){
         return{
+            loading:false,
             shopList:[],
             store_id:0,
             list: [
@@ -162,6 +169,7 @@ export default{
             this.getGoodsList()
         },
         getGoodsList (){
+          this.loading=true
           goodsList({
             keyword:this.searchValue,
             page:this.page.current_page,
@@ -176,7 +184,9 @@ export default{
                 per_page: res.data.per_page+'',
                 last_page:res.data.last_page,
             }
+           
             this.$nextTick(function(res){
+                this.loading=false 
             for(let i = 0;i<this.list.length;i++){
                 let flag = -1
                 for(let j = 0;j<this.checkList.length;j++){
@@ -191,7 +201,7 @@ export default{
             }
             })
                 
-                
+            
             
           })
         },

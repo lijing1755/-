@@ -85,19 +85,23 @@
                   </div>
                 </div>
               </div>
-               
               <div class="goods-list">
-                <div class="goods-li" v-for="(item,index) in list1[checkIndex].goods_list" :key='index'>
-                  <img class="goods-li_img" :src="URL+item.goods_img" alt="">
-                  <div class="goods-del" @click="del(index)">
-                      <img :src="delgoods" class="del_img" alt="" srcset="">
+              <draggable clang="goodslist" v-model="list1[checkIndex].goods_list" chosen-class="chosen" :scroll="true" force-fallback="true" animation="150"
+                >
+                
+                  <div class="goods-li" v-for="(item,index) in list1[checkIndex].goods_list" :key='index'>
+                    <img class="goods-li_img" :src="URL+item.goods_img" alt="">
+                    <div class="goods-del" @click="del(index)">
+                        <img :src="delgoods" class="del_img" alt="" srcset="">
+                    </div>
                   </div>
-                  <!-- <span>{{item.title}}</span> -->
-                </div>
+                    
                   
-                <div class='goods-add'  @click="openpop">
-                  <i class="el-icon-plus"></i>
-                </div>
+                
+              </draggable>
+              </div>
+              <div class='goods-add'  @click="openpop">
+                <el-button type="primary">添加商品</el-button>
               </div>
             </div>
             <div class="list-select" v-if='list1[checkIndex].type==2'>
@@ -710,6 +714,11 @@ export default {
       padding: 20px 0;
       overflow-y: auto;
   }
+  .goods-list > div{
+      display: flex;
+      flex-wrap: wrap;
+      
+  }
   .goods-list::-webkit-scrollbar{
     display: none;
   }
@@ -735,12 +744,11 @@ export default {
   }
   
   .goods-add{
-      width: 50px;
+      width: 100%;
       height: 50px;
       display: flex;
       justify-content: center;
       align-items: center;
-      border: 1px solid #CCC;
   }
   .nameinput{
     margin-right: 20px;
