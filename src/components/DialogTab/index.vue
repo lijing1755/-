@@ -16,7 +16,10 @@
         </el-dropdown>
         </div>
         <div style="margin-left:20px">
-          <el-input v-model="searchValue" @change="handleSelect" placeholder="请输入内容"></el-input>
+          <el-input v-model="searchValue" @change="handleSelect" placeholder="请输入搜索内容"></el-input>
+        </div>
+        <div style="margin-left:20px">
+          <el-input v-model="searchId" @change="handleSelect" placeholder="请输入商品id"></el-input>
         </div>
         <div style="margin-left:20px">
           <el-button type="success" @click='handleSelect'>搜索</el-button>
@@ -116,7 +119,8 @@ export default{
                 per_page:'15',
                 last_page:0
             },
-            searchValue:''
+            searchValue:'',
+            searchId:''
         }
     },
     created(){
@@ -174,7 +178,8 @@ export default{
             keyword:this.searchValue,
             page:this.page.current_page,
             store_id:this.store_id,
-            list_rows:this.page.per_page
+            list_rows:this.page.per_page,
+            goods_id:this.searchId
           }).then(res => {
 
             this.list = res.data.data
@@ -220,6 +225,7 @@ export default{
         this.store_id = null
         this.searchValue = ''
         this.page.current_page='1'
+        this.searchId = ''
         this.getGoodsList()
       },
       handleSizeChange(val){

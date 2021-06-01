@@ -443,8 +443,8 @@ export default {
  
 <style rel="stylesheet/scss" lang="scss" scoped>
     .del_img{
-      width: 10px;
-      height: 10px;
+      width: 12px;
+      height: 12px;
     }
    .compents{
       background: #FFF;
@@ -755,6 +755,8 @@ export default {
     position: absolute;
     top: 0px;
     right: 0px;
+    width: 12px;
+    height:12px;
     cursor: pointer;
   }
   

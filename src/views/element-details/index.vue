@@ -426,8 +426,8 @@ export default {
       border-radius: 5px;
     }
     .del_img{
-      width: 10px;
-      height: 10px;
+      width: 12px;
+      height: 12px;
     }
     .select-title-imag{
       display: flex;
@@ -740,6 +740,8 @@ export default {
       position: absolute;
       top: 0px;
       right: 0px;
+      width: 12px;
+      height:12px;
       cursor: pointer;
   }
   
