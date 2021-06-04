@@ -134,6 +134,7 @@
                 accept="image/jpeg,image/png"
                 :show-file-list='false'
                 :before-upload="beforeAvatarUpload"
+                :on-progress='onProgress'
                 :on-success='success'
                 :on-error='errorr'
                 >
@@ -291,10 +292,16 @@ export default {
           console.log('返回的参数')
           console.log(res)
           this.$message.success(this.modelId?'修改成功':'添加成功')
+          this.$router.go(-1)
       }).catch(err => {
           this.$message.error(err.msg)
           console.log('错误'+err)
       })
+    },
+    onProgress(event, file, fileList){
+      console.log(event)
+      console.log(file)
+      console.log(fileList)
     },
     success(response, file, fileList){
         if(this.list1[this.checkIndex].type==1){
@@ -481,7 +488,6 @@ export default {
       justify-content: center;
     }
     .avatar-uploader .el-upload {
-      border: 1px dashed #d9d9d9;
       border-radius: 6px;
       cursor: pointer;
       position: relative;
