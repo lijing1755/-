@@ -2,7 +2,7 @@ import Vue from 'vue'
 
 import Cookies from 'js-cookie'
 import 'normalize.css/normalize.css' // A modern alternative to CSS resets
-
+import echarts from 'echarts'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 
@@ -31,7 +31,6 @@ import waterfall from 'vue-waterfall2'
 
 Vue.use(waterfall)
 Vue.use(VueDirectiveImagePreviewer)
-
 // 修改 el-dialog 默认点击遮照为不关闭
 ElementUI.Dialog.props.closeOnClickModal.default = false
 
@@ -67,7 +66,7 @@ Vue.use({ FontAwesome: true, ElementUI: true, eIcon: true, eIconSymbol: true })
 // bus
 const bus = new Vue()
 Vue.prototype.bus = bus
-
+Vue.prototype.$echarts = echarts
 // lodash
 Vue.prototype.$lodash = lodash
 
