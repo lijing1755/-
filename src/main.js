@@ -2,7 +2,8 @@ import Vue from 'vue'
 
 import Cookies from 'js-cookie'
 import 'normalize.css/normalize.css' // A modern alternative to CSS resets
-import echarts from 'echarts'
+// import echarts from 'echarts'
+
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 
@@ -60,7 +61,15 @@ Vue.use(vueParticleLine)
 // import 'e-icon-picker/dist/index.css' // 基本样式，包含基本图标
 import 'font-awesome/css/font-awesome.min.css' // font-awesome 图标库
 import 'element-ui/lib/theme-chalk/icon.css' // element-ui 图标库
-
+const echarts = require('echarts/lib/echarts')
+// 引入折线图/柱状图等组件
+require('echarts/lib/chart/line')
+require("echarts/lib/chart/pie")
+// 引入提示框和title组件，图例
+require('echarts/lib/component/tooltip')
+require('echarts/lib/component/title')
+require('echarts/lib/component/legend')
+require('echarts/lib/component/legendScroll')
 Vue.use({ FontAwesome: true, ElementUI: true, eIcon: true, eIconSymbol: true })
 
 // bus

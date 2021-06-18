@@ -348,7 +348,7 @@ export default {
             name: resp[i].goods_name
           })
         }
-        const that = this
+
         const myChart = this.$echarts.init(document.getElementById('pie'))
         myChart.setOption({
           title: {

@@ -12,37 +12,43 @@
         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
       </el-upload> -->
       <el-upload
+        ref="name"
         class="avatar-uploader"
         :action="API"
-        ref="name"
-        name='uploadImageName'
+        name="uploadImageName"
         accept="image/jpeg,image/png"
-        :show-file-list='false'
+        :show-file-list="false"
         :before-upload="beforeAvatarUpload"
-        :on-success='handleAvatarSuccess'
-        :on-error='errorr'
-        :on-change='onChange'
-        >
-          <img v-if="imageUrl" :src="imageUrl" class="avatar">
-          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+        :on-success="handleAvatarSuccess"
+        :on-error="errorr"
+        :on-change="onChange"
+      >
+        <img v-if="imageUrl" :src="imageUrl" class="avatar">
+        <i v-else class="el-icon-plus avatar-uploader-icon" />
       </el-upload>
       <div class="radio">
-        <el-radio v-model="radio" label="1">URL</el-radio>
-        <el-radio v-model="radio" label="2">商品ID</el-radio>
+        <el-radio v-model="radio" label="1">
+          URL
+        </el-radio>
+        <el-radio v-model="radio" label="2">
+          商品ID
+        </el-radio>
       </div>
       <div class="input">
-        <el-input v-model="input" :placeholder="radio==1?'请输入URL路径':'请输入商品ID'"></el-input>
+        <el-input v-model="input" :placeholder="radio==1?'请输入URL路径':'请输入商品ID'" />
       </div>
       <div class="radio">
         是否启用
         <el-switch
           v-model="value"
           active-color="#13ce66"
-          inactive-color="#ff4949">
-        </el-switch>
+          inactive-color="#ff4949"
+        />
       </div>
       <div class="radio">
-        <el-button @click="submit" type="success" icon="el-icon-check">保存提交</el-button>
+        <el-button type="success" icon="el-icon-check" @click="submit">
+          保存提交
+        </el-button>
       </div>
     </div>
   </div>
@@ -56,13 +62,16 @@ import {
 export default {
   data() {
     return {
-      API:process.env.VUE_APP_API+'/system/uploadImage',
+      API: process.env.VUE_APP_API + '/system/uploadImage',
       imageUrl: '',
-      radio:'1',
-      input:'',
-      value:false,
-      URL:'https://jupinshop.oss-cn-shenzhen.aliyuncs.com/',
+      radio: '1',
+      input: '',
+      value: false,
+      URL: 'https://jupinshop.oss-cn-shenzhen.aliyuncs.com/'
     }
+  },
+  computed: {
+
   },
   watch: {
 
@@ -70,67 +79,60 @@ export default {
   created() {
     this.headPageInfo()
   },
-  computed: {
- 
-  },
   methods: {
-    onChange(file, fileList){
-      console.log('???????')
+    onChange(file, fileList) {
       console.log(file)
       console.log(fileList)
     },
-    errorr(err, file, fileList){
+    errorr(err, file, fileList) {
       console.log('上传失败')
       console.log(err)
       console.log(file)
-      console.log(efileListr)
+      console.log(fileList)
     },
-    headPageInfo (){
+    headPageInfo() {
       headPageInfo().then(res => {
-        console.log('返回的数据',res)
-          this.imageUrl = res.data.head_pic;
-          this.radio = res.data.type+'';
-          this.input = res.data.type_name;
-          this.value = res.data.is_use==1?true:false
+        console.log('返回的数据', res)
+        this.imageUrl = res.data.head_pic
+        this.radio = res.data.type + ''
+        this.input = res.data.type_name
+        this.value = res.data.is_use == 1
       })
     },
-    submit (){
-      let data = {
-        head_pic : this.imageUrl,
-        type : this.radio,
-        type_name : this.input,
-        is_use : this.value?'1':'0'
-      };
+    submit() {
+      const data = {
+        head_pic: this.imageUrl,
+        type: this.radio,
+        type_name: this.input,
+        is_use: this.value ? '1' : '0'
+      }
       editHeadPage(data).then(res => {
-        console.log('++++++++++',res)
         this.$message({
           message: '提交成功',
           type: 'success'
-        });
-        console.log(data);
+        })
+        console.log(data)
       })
-      
     },
     handleAvatarSuccess(res, file) {
-      this.imageUrl = this.URL+res.imgPath;
-      
+      this.imageUrl = this.URL + res.imgPath
+
       this.$refs.name.clearFiles()
     },
     beforeAvatarUpload(file) {
-      const isJPG = file.type === 'image/jpeg';
-      const isPNG = file.type === "image/png";
-      const isLt2M = file.size / 1024 / 1024 < 1;
-
+      const isJPG = file.type === 'image/jpeg'
+      const isPNG = file.type === "image/png"
+      const isLt2M = file.size / 1024 / 1024 < 2
       if (!isJPG && !isPNG) {
-        this.$message.error('上传图片只能是 JPG 或 PNG 格式!');
+        this.$message.error('上传图片只能是 JPG 或 PNG 格式!')
       }
       if (!isLt2M) {
-        this.$message.error('上传图片大小不能超过 1MB!');
+        this.$message.error('上传图片大小不能超过 2MB!')
       }
-      return isJPG && isLt2M;
+      return (isJPG || isPNG) && isLt2M
     }
-  },
-};
+  }
+}
 </script>
 
 <style>
